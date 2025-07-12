@@ -1,107 +1,86 @@
 # Gemini-Telegram-Bot
 
-一个功能强大的基于Google Gemini AI的Telegram机器人，支持多语言、多模型、图像理解与生成等功能。
+A powerful Telegram bot based on Google's Gemini AI, featuring model switching, image understanding & generation, and more. It is configured to be private by default but can be made public.
 
-[English Document](https://github.com/laoguodong/Gemini-Telegram-Bot/blob/main/README_en.md)
+This is a fork of the original project. The original repository can be found here: [https://github.com/laoguodong/Gemini-Telegram-Bot](https://github.com/laoguodong/Gemini-Telegram-Bot)
 
-## ✨ 主要功能
+## ✨ Features
 
-- 💬 **智能对话**：支持与Gemini模型进行自然、连贯的多轮对话
-- 🌐 **多语言支持**：内置中英文支持，可随时切换界面语言
-- 🔄 **多模型切换**：支持在Gemini模型之间自由切换
-- 📸 **图像理解**：可以识别和分析用户上传的图片内容
-- 🎨 **AI绘图**：通过文字描述生成图像
-- ✏️ **图像编辑**：支持对上传的图片进行AI辅助编辑
-- 🔑 **多API密钥管理**：支持添加、移除和切换多个Gemini API密钥
-- 📝 **自定义系统提示词**：可以设置、修改和管理系统提示词
+- 💬 **Smart Conversation**: Engage in natural, multi-turn conversations with the Gemini model.
+- 🔄 **Model Switching**: Freely switch between different Gemini models.
+- 📸 **Image Understanding**: Can recognize and analyze the content of images uploaded by the user.
+- 🎨 **AI Drawing**: Generate images from text descriptions.
+- ✏️ **Image Editing**: Perform AI-assisted editing on uploaded images.
+- 🔑 **API Key Management**: Support for adding, removing, and switching between multiple Gemini API keys.
+- 📝 **Custom System Prompts**: Set, modify, and manage custom system prompts.
 
-## 🚀 安装方法
+## 🚀 Installation
 
-### 方法一（Railway一键部署）
+This guide explains how to install and run the bot manually.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/ya_ZL5?referralCode=HPHyYT)
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/laoguodong/Gemini-Telegram-Bot.git
+    ```
 
-### 方法二（Docker部署）
+2.  **Navigate into the project directory**
+    ```bash
+    cd Gemini-Telegram-Bot
+    ```
 
-1. 克隆项目
-   ```bash
-   git clone https://github.com/laoguodong/Gemini-Telegram-Bot.git
-   ```
+3.  **Install the required dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-2. 进入项目目录
-   ```bash
-   cd Gemini-Telegram-Bot
-   ```
+4.  **Create the `.env` configuration file**
+    
+    Create a file named `.env` in the main directory and add your credentials to it.
+    
+    ```env
+    # Your bot token from @BotFather
+    TG_TOKEN="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+    
+    # Your API key from Google AI Studio (you can add multiple, separated by commas)
+    GOOGLE_GEMINI_KEY="AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    
+    # Your numeric Telegram User ID to make the bot private
+    OWNER_ID="123456789"
+    ```
+    
+    **Important Note on `OWNER_ID`:**
+    *   To make the bot **private** and respond only to you, set this to your numeric Telegram User ID.
+    *   To make the bot **public** and respond to everyone, set `OWNER_ID="-1"`.
 
-3. 构建Docker镜像
-   ```bash
-   docker build -t gemini_tg_bot .
-   ```
+5.  **Run the bot**
+    
+    The script will automatically load the credentials from your `.env` file.
+    ```bash
+    python main.py
+    ```
 
-4. 运行容器
-   ```bash
-   docker run -d --restart=always -e TELEGRAM_BOT_API_KEY={Telegram机器人API} -e GEMINI_API_KEYS={Gemini API密钥} gemini_tg_bot
-   ```
+## 📖 Commands
 
-### 方法三（Linux系统安装）
+### Basic Commands
 
-1. 安装依赖
-   ```bash
-   pip install -r requirements.txt
-   ```
+-   `/start` - Start using the bot.
+-   `/gemini` - Use the Gemini model.
+-   `/gemini_pro` - Use the Gemini Pro model.
+-   `/draw` - Use the AI drawing feature.
+-   `/edit` - Edit an image.
+-   `/clear` - Clear the current conversation history.
+-   `/switch` - Switch the default model.
 
-2. 在[BotFather](https://t.me/BotFather)获取Telegram Bot API密钥
+### System Prompt Management
 
-3. 在[Google AI Studio](https://makersuite.google.com/app/apikey)获取Gemini API密钥
+-   `/system` - Set a custom system prompt.
+-   `/system_clear` - Delete the custom system prompt.
+-   `/system_reset` - Reset the system prompt to the default.
+-   `/system_show` - Display the current system prompt.
 
-4. 运行机器人
-   ```bash
-   python main.py ${Telegram机器人API} ${Gemini API密钥}
-   ```
+### API Key Management
 
-## 📖 使用指南
-
-### 基本命令
-
-- `/start` - 开始使用机器人
-- `/gemini` - 使用Gemini模型
-- `/gemini_pro` - 使用Gemini Pro模型
-- `/draw` - AI绘图功能
-- `/edit` - 图片编辑功能
-- `/clear` - 清除当前对话历史
-- `/switch` - 切换默认使用的模型
-- `/lang` - 切换语言（中/英）
-- `/language` - 显示当前语言设置
-
-### 系统提示词管理
-
-- `/system` - 设置系统提示词
-- `/system_clear` - 删除系统提示词
-- `/system_reset` - 重置系统提示词为默认
-- `/system_show` - 显示当前系统提示词
-
-### API密钥管理
-
-- `/api_add` - 添加新的API密钥
-- `/api_remove` - 删除现有API密钥
-- `/api_list` - 查看所有API密钥列表
-- `/api_switch` - 切换当前使用的API密钥
-
-### 使用场景
-
-1. **私聊模式**：直接发送文字或图片进行对话
-2. **群组模式**：使用 `/gemini` 或 `/gemini_pro` 命令加问题进行对话
-3. **图像处理**：
-   - 发送图片让AI识别内容
-   - 使用 `/edit` + 图片 + 描述进行图像编辑
-   - 使用 `/draw` + 描述生成AI图像
-
-## 📋 注意事项
-
-- 部分功能（如API密钥管理）仅在私聊模式下可用
-- 确保API密钥格式正确以保证功能正常使用
-- 系统提示词会影响AI的回复风格，可根据需要定制
-
-## ⭐ Star 历史
-
-[![Star History Chart](https://api.star-history.com/svg?repos=laoguodong/Gemini-Telegram-Bot&type=Date)](https://star-history.com/#laoguodong/Gemini-Telegram-Bot&Date)
+-   `/api_add` - Add a new API key.
+-   `/api_remove` - Remove an existing API key.
+-   `/api_list` - View the list of all API keys.
+-   `/api_switch` - Switch the currently active API key.
